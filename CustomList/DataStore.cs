@@ -4,83 +4,95 @@ using System.Text;
 
 namespace CustomList
 {
-    class MyList<T>
+    public class MyList<T>
     {
         private T[] arr;
-
+        public int Count { get; set; }
         public MyList()
         {
-            arr = new T[0];
+            arr = new T[10];
         }
 
-        public void Add(T num)
+        public void Add(T obj)
         {
-            Array.Resize(ref arr, arr.Length + 1);
-            arr[arr.Length - 1] = num;
-        }
-
-        //public void AddRange(IEnumerable<T> collection)
-        //{
-
-        //}
-
-        public void GetAll()
-        {
-            foreach (var item in arr)
+            if (Count % 10 == 0)
             {
-                Console.WriteLine(item);
+                ArrayResize();
+            }
+            arr[Count] = obj;
+            Count++;
+
+        }
+        private void ArrayResize()
+        {
+            Array.Resize(ref arr, arr.Length + 10);
+
+        }
+
+        public void Clear()
+        {
+            arr = new T[10];
+            Count = 0;
+        }
+
+        public void AddRange(IEnumerable<T> list)
+        {
+            foreach (var item in list)
+            {
+                Add(item);
             }
         }
 
-        //Indexer
+        public T Find(Predicate<T> func)
+        {
+            foreach (var item in arr)
+            {
+                if (func(item))
+                {
+                    return item;
+                }
+            }
+            return default;
+        }
+        public bool Contains(T obj)
+        {
+            foreach (var item in arr)
+            {
+                if (Comparer<T>.Default.Compare(item, obj) == 0) ;
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public T this[int index]
+        {
+            get
+            {
+                try
+                {
+                    return arr[index];
+                }
+                catch (Exception)
+                {
 
-        //    private T[] store;
-        //    public MyList()
-        //    {
-        //        store = new T[5];
-        //    }
+                    return arr[0];
+                }
+            }
+            set
+            {
+                try
+                {
+                    arr[index] = value;
+                }
+                catch (Exception)
+                {
 
-        //    public MyList(int length)
-        //    {
-        //        store = new T[length];
-        //    }
+                    throw;
+                }
+            }
+        }
 
-        //    public T this[int index]
-        //    {
-        //        get
-        //        {
-        //            try
-        //            {
-        //                return store[index];
-        //            }
-        //            catch (Exception)
-        //            {
-
-        //                return store[0];
-        //            }
-        //        }
-        //        set
-        //        {
-        //            try
-        //            {
-        //                store[index] = value;
-        //            }
-        //            catch (Exception)
-        //            {
-
-        //                Console.WriteLine("Out of range");
-        //            }
-        //        }
-        //    }
-
-        //    public int Length
-        //    {
-        //        get
-        //        {
-        //            return store.Length;
-        //        }
-        //    }
-    }
-
+    }    
 
 }   
