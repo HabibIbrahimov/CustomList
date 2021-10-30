@@ -92,7 +92,41 @@ namespace CustomList
                 }
             }
         }
-
+        public bool Remove(T obj)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (Comparer<T>.Default.Compare(arr[i],obj)==0)
+                {
+                arr[i] = default;
+                Count--;
+                return true;
+                }
+            }
+            return false;
+        }
+        public int IndexOf(T obj)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (Comparer<T>.Default.Compare(arr[i],obj)==0)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        public int LastIndexOf(T obj)
+        {
+            for (int i=arr.Length-1;i >=0; i--)
+            {
+                if (Comparer<T>.Default.Compare(arr[i],obj)==0)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }    
 
 }   

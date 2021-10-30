@@ -18,7 +18,11 @@ namespace CustomList
             list2.Add(1);
             list2.Add(2);
             list2.Add(3);
-            Console.WriteLine(list.Contains("Habib1"));
+
+            list2.IndexOf(5);
+            list.Clear();
+            Console.WriteLine(list.Count);
+            
         }
     }
 }
